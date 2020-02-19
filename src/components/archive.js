@@ -29,7 +29,10 @@ const Archive = () => {
         <h3>Archive</h3>
         <ul>
           {edges.map(edge => (
-            <Link to={`/posts${edge.node.frontmatter.slug}`}>
+            <Link
+              key={edge.node.frontmatter.slug}
+              to={`/posts${edge.node.frontmatter.slug}`}
+            >
               <li>{edge.node.frontmatter.title}</li>
             </Link>
           ))}
