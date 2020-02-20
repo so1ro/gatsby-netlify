@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 import Header from "./header"
 import Archive from "./archive"
-import "./layout.css"
+import "./layout.module.styl"
 
 const MainLayout = styled.main`
   margin: 0 auto;

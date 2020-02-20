@@ -6,6 +6,12 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-stylus",
+      options: {
+        // use: [rupture()],
+      },
+    },
+    {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         // Add any options here
