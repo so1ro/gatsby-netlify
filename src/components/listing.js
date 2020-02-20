@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, StaticQuery, graphql } from "gatsby"
+import style from "./listing.module.styl"
 
 // import Image from "../components/image"
 
@@ -23,18 +24,22 @@ const LISTING_QUERY = graphql`
   }
 `
 
+const { article, read_more } = style
+
 const Listing = () => (
   <StaticQuery
     query={LISTING_QUERY}
     render={({ allMarkdownRemark }) =>
       allMarkdownRemark.edges.map(({ node }) => (
-        <article key={node.frontmatter.slug}>
+        <article className={article} key={node.frontmatter.slug}>
           <Link to={`/posts${node.frontmatter.slug}`}>
             <h2>{node.frontmatter.title}</h2>
           </Link>
           <p>{node.frontmatter.date}</p>
           <p>{node.excerpt}</p>
-          <Link to={`/posts${node.frontmatter.slug}`}>Read more</Link>
+          <Link className={read_more} to={`/posts${node.frontmatter.slug}`}>
+            Read more
+          </Link>
         </article>
       ))
     }

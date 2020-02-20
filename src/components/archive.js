@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import style from "./archive.module.styl"
 
 const POST_ARCHIVE_QUERY = graphql`
   query BlogPostArchive {
@@ -19,6 +20,8 @@ const POST_ARCHIVE_QUERY = graphql`
   }
 `
 
+const { link } = style
+
 const Archive = () => {
   const data = useStaticQuery(POST_ARCHIVE_QUERY)
   const { edges } = data.allMarkdownRemark
@@ -30,6 +33,7 @@ const Archive = () => {
         <ul>
           {edges.map(edge => (
             <Link
+              className={link}
               key={edge.node.frontmatter.slug}
               to={`/posts${edge.node.frontmatter.slug}`}
             >
