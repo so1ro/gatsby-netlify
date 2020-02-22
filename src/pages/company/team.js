@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "../../components/layout"
 
-const Team = () => {
+const Team = ({ location }) => {
   return (
-    <Layout>
+    <Layout location={location}>
       <div>
         <h1>Team</h1>
         <p>

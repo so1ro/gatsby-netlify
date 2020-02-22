@@ -8,7 +8,7 @@ import "./reset.styl"
 import style from "./layout.module.styl"
 import Img from "gatsby-image"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
           title
         }
       }
-      file(relativePath: { regex: "/gatsby/" }) {
+      file(relativePath: { regex: "/astronaut/" }) {
         childImageSharp {
           fluid(maxWidth: 1000) {
             ...GatsbyImageSharpFluid_tracedSVG
@@ -28,11 +28,12 @@ const Layout = ({ children }) => {
 
   const { title } = data.site.siteMetadata
   const { main } = style
+  const { fluid } = data.file.childImageSharp
 
   return (
     <>
       <Header siteTitle={title} />
-      <Img fluid={data.file.childImageSharp.fluid} />
+      {location.pathname === "/" && <Img fluid={fluid} />}
       <main className={main}>
         <main>{children}</main>
         <Archive />

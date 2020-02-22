@@ -8,8 +8,9 @@ class postLayout extends Component {
     function createMarkup() {
       return { __html: markdownRemark.html }
     }
+    const { location } = this.props
     return (
-      <Layout>
+      <Layout location={location}>
         <div>
           <h1>{markdownRemark.frontmatter.title}</h1>
           <div dangerouslySetInnerHTML={createMarkup()} />
