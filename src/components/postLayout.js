@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
+import SEO from "./seo"
 import Layout from "./layout"
 
 export const query = graphql`
@@ -23,8 +24,9 @@ class postLayout extends Component {
     const option = {
       renderNode: {
         "embedded-asset-block": node => {
-          const alt = node.data.target.fields.title["en-US"]
-          const url = node.data.target.fields.file["en-US"].url
+          const { title, file } = node.data.target.fields
+          const alt = title["en-US"]
+          const url = file["en-US"].url
           return <img alt={alt} src={url} />
         },
       },
@@ -34,6 +36,7 @@ class postLayout extends Component {
     // }
     return (
       <Layout location={location}>
+        <SEO title={title} />
         <div>
           <h1>{title}</h1>
           <p>{publishDate}</p>
