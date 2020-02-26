@@ -3,17 +3,13 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 import style from "./archive.module.styl"
 
 const POST_ARCHIVE_QUERY = graphql`
-  query BlogPostArchive {
-    allMarkdownRemark(
-      limit: 5
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+  query ContentFulBlogList {
+    allContentfulBlogPost(sort: { fields: publishDate, order: DESC }) {
       edges {
         node {
-          frontmatter {
-            title
-            slug
-          }
+          title
+          slug
+          publishDate(formatString: "MMM Do, YYYY")
         }
       }
     }
@@ -24,7 +20,7 @@ const { link } = style
 
 const Archive = () => {
   const data = useStaticQuery(POST_ARCHIVE_QUERY)
-  const { edges } = data.allMarkdownRemark
+  const { edges } = data.allContentfulBlogPost
 
   return (
     <>
@@ -34,10 +30,10 @@ const Archive = () => {
           {edges.map(edge => (
             <Link
               className={link}
-              key={edge.node.frontmatter.slug}
-              to={`/posts${edge.node.frontmatter.slug}`}
+              key={edge.node.slug}
+              to={`/posts/${edge.node.slug}`}
             >
-              <li>{edge.node.frontmatter.title}</li>
+              <li>{edge.node.title}</li>
             </Link>
           ))}
         </ul>

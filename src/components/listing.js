@@ -6,18 +6,12 @@ import style from "./listing.module.styl"
 
 const LISTING_QUERY = graphql`
   query BlogPostListing {
-    allMarkdownRemark(
-      limit: 10
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+    allContentfulBlogPost(sort: { fields: publishDate, order: DESC }) {
       edges {
         node {
-          excerpt
-          frontmatter {
-            title
-            slug
-            date(formatString: "MMM Do, YYYY")
-          }
+          title
+          slug
+          publishDate(formatString: "MMM Do, YYYY")
         }
       }
     }
@@ -29,15 +23,15 @@ const { article, read_more } = style
 const Listing = () => (
   <StaticQuery
     query={LISTING_QUERY}
-    render={({ allMarkdownRemark }) =>
-      allMarkdownRemark.edges.map(({ node }) => (
-        <article className={article} key={node.frontmatter.slug}>
-          <Link to={`/posts${node.frontmatter.slug}`}>
-            <h2>{node.frontmatter.title}</h2>
+    render={({ allContentfulBlogPost }) =>
+      allContentfulBlogPost.edges.map(({ node }) => (
+        <article className={article} key={node.slug}>
+          <Link to={`/posts/${node.slug}`}>
+            <h2>{node.title}</h2>
           </Link>
-          <p>{node.frontmatter.date}</p>
+          <p>{node.publishDate}</p>
           <p>{node.excerpt}</p>
-          <Link className={read_more} to={`/posts${node.frontmatter.slug}`}>
+          <Link className={read_more} to={`/posts/${node.slug}`}>
             Read more
           </Link>
         </article>

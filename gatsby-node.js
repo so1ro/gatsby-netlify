@@ -5,12 +5,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const blogPostTemplate = path.resolve(`./src/components/postLayout.js`)
   const result = await graphql(`
     {
-      allMarkdownRemark {
+      allContentfulBlogPost {
         edges {
           node {
-            frontmatter {
-              slug
-            }
+            slug
           }
         }
       }
@@ -18,11 +16,11 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
   if (result.errors) throw result.errors
 
-  result.data.allMarkdownRemark.edges.forEach(edge => {
+  result.data.allContentfulBlogPost.edges.forEach(edge => {
     createPage({
-      path: `posts${edge.node.frontmatter.slug}`,
+      path: `posts/${edge.node.slug}`,
       component: blogPostTemplate,
-      context: { slug: edge.node.frontmatter.slug },
+      context: { slug: edge.node.slug },
     })
   })
 }
