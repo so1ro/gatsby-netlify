@@ -28,13 +28,15 @@ const Archive = () => {
         <h3>Archive</h3>
         <ul>
           {edges.map(edge => (
-            <Link
-              className={link}
-              key={edge.node.slug}
-              to={`/posts/${edge.node.slug}`}
-            >
-              <li>{edge.node.title}</li>
-            </Link>
+            <li>
+              <Link
+                className={link}
+                key={edge.node.slug}
+                to={`/posts/${edge.node.slug}`}
+              >
+                {edge.node.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </aside>
